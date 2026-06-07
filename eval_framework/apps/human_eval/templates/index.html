@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Video Preference Eval</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <h1>Physics / dynamics preference</h1>
+    <span id="progress-text">Loading…</span>
+  </header>
+
+  <main id="app" class="hidden">
+    <section class="meta-row">
+      <span id="meta-sample"></span>
+      <span id="meta-pair"></span>
+    </section>
+
+    <section id="context-section" class="panel hidden">
+      <h2>Context</h2>
+      <div id="context-container"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Ground Truth</h2>
+      <video id="gt-video" class="vid" controls playsinline preload="metadata"></video>
+    </section>
+
+    <section class="controls-row">
+      <button type="button" id="btn-play-all">Play all</button>
+      <button type="button" id="btn-pause-all">Pause all</button>
+      <button type="button" id="btn-replay-all">Replay all</button>
+      <span class="hint">Space = play/pause · 1/2/3/4 = A/B/tie/invalid</span>
+    </section>
+
+    <section class="pair-row">
+      <div class="gen-col">
+        <h2>Generated A</h2>
+        <video id="video-a" class="vid" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="gen-col">
+        <h2>Generated B</h2>
+        <video id="video-b" class="vid" controls playsinline preload="metadata"></video>
+      </div>
+    </section>
+
+    <section class="question panel">
+      <p class="prompt">
+        Which generated video better matches the ground truth and expected future dynamics?
+      </p>
+      <div class="choice-row">
+        <button type="button" class="choice" data-pref="A">1 — A is better</button>
+        <button type="button" class="choice" data-pref="B">2 — B is better</button>
+        <button type="button" class="choice" data-pref="tie">3 — Tie / no preference</button>
+        <button type="button" class="choice" data-pref="invalid">4 — Both bad / invalid</button>
+      </div>
+    </section>
+
+    <details class="panel optional-ratings">
+      <summary>Optional ratings &amp; comments</summary>
+      <div class="ratings-grid">
+        <label>Visual realism (1–5)
+          <input type="number" id="visual-realism" min="1" max="5" />
+        </label>
+        <label>Action consistency (1–5)
+          <input type="number" id="action-consistency" min="1" max="5" />
+        </label>
+        <label>Temporal coherence (1–5)
+          <input type="number" id="temporal-coherence" min="1" max="5" />
+        </label>
+      </div>
+      <label class="comments-label">Comments
+        <textarea id="comments" rows="2" placeholder="Optional notes"></textarea>
+      </label>
+    </details>
+
+    <p id="status-msg" class="status"></p>
+  </main>
+
+  <main id="done-screen" class="panel hidden">
+    <h2>All pairs annotated</h2>
+    <p>Thank you. You can close this tab or export results from the admin page.</p>
+    <a href="/admin">Admin dashboard</a>
+  </main>
+
+  <script src="/static/js/annotate.js"></script>
+</body>
+</html>

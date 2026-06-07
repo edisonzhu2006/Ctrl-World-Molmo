@@ -1,0 +1,53 @@
+[workspace]
+name = "ctrl-world"
+version = "0.1.0"
+description = "Ctrl-World: controllable generative world model + AIM-AWR offline RL port"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "==3.11"
+pip = "*"
+
+# Dev tooling
+pytest = "*"
+black = "*"
+isort = "*"
+
+# Heavy native libs that benefit from conda-forge prebuilt wheels.
+# pyarrow: parquet manifest from HF.
+# h5py:    raw MolmoBot trajectory H5s (used by tools/viz_molmobot_quat_bug.py).
+# ffmpeg:  required by mediapy for mp4 decode in tools/viz_molmobot_quat_bug.py.
+pyarrow = "*"
+h5py = "*"
+ffmpeg = "*"
+
+[pypi-dependencies]
+# Core ML stack
+# - torch: upstream Ctrl-World pins 2.7.1 (pre-Blackwell). We bump to >=2.8
+#   so the wheel includes sm_120 kernels for the lab's RTX PRO 6000 Blackwells.
+#   open-dreams' own env uses 2.11.0+cu130 which is the target baseline.
+# - diffusers/transformers: keep upstream pins; they're forward-compatible.
+diffusers = "==0.34.0"
+transformers = "==4.48.1"
+torch = ">=2.8"
+
+# Ancillaries (floating, matching upstream requirements.txt)
+mediapy = "*"
+wandb = "*"
+swanlab = "*"
+accelerate = "*"
+tqdm = "*"
+numpy = "*"
+decord = "*"
+einops = "*"
+scipy = "*"
+pandas = "*"
+
+# Visualization + dataset tooling for tools/viz_molmobot_quat_bug.py
+rerun-sdk = "*"
+huggingface_hub = "*"
+zstandard = "*"   # decompress MolmoBot HF shards (.tar.zst inner archives)
+
+# Cluster job submission used by tools/submitit_train_*.py (della-gpu).
+submitit = "*"

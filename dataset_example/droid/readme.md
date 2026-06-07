@@ -1,0 +1,1 @@
+You can process the whole droid dataset here. The dataset structure should be same as dataset_example/droid_subset.

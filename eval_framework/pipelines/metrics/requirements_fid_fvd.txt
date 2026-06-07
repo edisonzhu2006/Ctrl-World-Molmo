@@ -1,0 +1,10 @@
+# Optional metrics stack (install in the same env as eval_framework video tools).
+# FID: https://github.com/toshas/torch-fidelity
+# FVD: I3D TorchScript from StyleGAN-V / google-research FVD line, invoked like
+#      https://github.com/universome/fvd-comparison/blob/master/compare_models.py
+torch-fidelity>=0.3.0
+torchvision
+Pillow
+# Plotting (analyze_fid_fvd_checkpoints.py, analyze_checkpoint_metrics.py)
+matplotlib>=3.5.0
+seaborn>=0.12.0

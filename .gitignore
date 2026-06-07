@@ -1,0 +1,34 @@
+*__pycache__*
+wandb*
+swanlog*
+output*
+dataset_example/merge.py
+predictions*
+synthetic_traj_old*
+old_files*
+video_models_logs*
+model_ckpt*
+synthetic_traj/Rollout*
+dataset_example/droid_subset/annotation/val_old*
+dataset_example/droid_new_setup_eval*
+.vscode
+process.pydataset_meta_info/droid/
+dataset_meta_info/droid/
+
+dataset_meta_info/droid/
+
+# eval_framework: heavy artifacts, recreatable envs, and on-demand caches.
+# (data/predictions, outputs, and __pycache__ are also matched by the loose
+# `predictions*`, `output*`, and `*__pycache__*` patterns above; listed here
+# explicitly to document intent for the eval_framework subtree.)
+eval_framework/data/predictions/
+eval_framework/outputs/
+eval_framework/vendor/robometer/.venv/
+eval_framework/vendor/robometer/unsloth_compiled_cache/
+eval_framework/vendor/robometer/.pixi/
+eval_framework/pipelines/metrics/.cache/
+eval_framework/pipelines/metrics/*.out
+eval_framework/**/.pytest_cache/
+# Human-eval runtime state and generated exports (manifests are kept tracked).
+eval_framework/apps/human_eval/data/*.sqlite
+eval_framework/apps/human_eval/data/exports/

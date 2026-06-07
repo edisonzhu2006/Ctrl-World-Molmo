@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Eval Admin</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <h1>Admin</h1>
+    <a href="/">Back to annotation</a>
+  </header>
+
+  <main class="panel">
+    <p>Manifest: <code>{{ manifest }}</code></p>
+    <p>Total judgments: <strong>{{ stats.total_judgments }}</strong></p>
+
+    <h2>By session</h2>
+    <table class="admin-table">
+      <thead><tr><th>session_id</th><th>count</th></tr></thead>
+      <tbody>
+        {% for row in stats.by_session %}
+        <tr><td>{{ row.session_id }}</td><td>{{ row.n }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>By preference</h2>
+    <table class="admin-table">
+      <thead><tr><th>preference</th><th>count</th></tr></thead>
+      <tbody>
+        {% for row in stats.by_preference %}
+        <tr><td>{{ row.preference }}</td><td>{{ row.n }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Export</h2>
+    <p>
+      <a href="/api/export?format=jsonl">Download JSONL</a> ·
+      <a href="/api/export?format=csv">Download CSV</a>
+    </p>
+  </main>
+</body>
+</html>

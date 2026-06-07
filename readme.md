@@ -1,3 +1,22 @@
+# Ctrl-World-Molmo
+
+**A research project extending [Ctrl-World](https://github.com/Robert-gyj/Ctrl-World)** — a controllable generative world model for robot manipulation — to **MolmoBot** data, with a standalone framework for evaluating world-model checkpoints.
+
+On top of the original DROID-only pipeline, this project adds:
+
+- **MolmoBot data + training.** Latent extraction, dataset meta-info, and world-model training for a Franka **MolmoBot** pick-and-place dataset, plus cross-dataset (DROID + MolmoBot) training. See `dataset_example/extract_latent_molmobot.py`, `dataset_meta_info/molmobot_franka_pick_and_place_omni/`, and the `run_ctrl_world_*_molmo*.slurm` / `run_create_*_meta_info.slurm` launch scripts.
+- **`eval_framework/` — a standalone checkpoint-rollout evaluation workspace** (isolated from training/rollout code):
+  - Video-quality metrics: PSNR / SSIM / LPIPS and FID / FVD (`pipelines/metrics/`).
+  - A pairwise **reward tournament** built on a vendored [Robometer](eval_framework/vendor/robometer) (`pipelines/reward/`), with MolmoAct dataset support.
+  - A human-preference web app and a Streamlit dashboard (`apps/`).
+  - Stable path conventions via `lib/layout.py`. See [eval_framework/README.md](eval_framework/README.md).
+- **Dataset + run tooling.** `preflight_check.sh`, `verify_dataset.py`, offline W&B sync (`sync_wandb_offline.sh`), and quaternion-convention bug test/visualizers (`tools/test_molmobot_quat_bug.py`, `tools/viz_molmobot_quat_bug.py`).
+- **pixi environment** (`pixi.toml` / `pixi.lock`) alongside the original `requirements.txt`.
+
+---
+
+> The rest of this README is the upstream Ctrl-World documentation that this project builds on.
+
 <div align="center">
 <h2><center>👉 Ctrl-World: A Controllable Generative World Model for Robot Manipulation </h2>
 
@@ -22,21 +41,6 @@ This repo includes the official PyTorch implementation for ICLR 2026 [**Ctrl-Wor
 <!-- synthetic_traj/gallery/ctrl_world.jpg -->
 
 
-
-## What this fork adds (Ctrl-World-Molmo)
-
-This is an extension of the upstream [Ctrl-World](https://github.com/Robert-gyj/Ctrl-World) world model. On top of the original DROID-only pipeline, this fork adds:
-
-- **MolmoBot data + training.** Latent extraction, dataset meta-info, and world-model training for a Franka **MolmoBot** pick-and-place dataset, plus cross-dataset (DROID + MolmoBot) training. See `dataset_example/extract_latent_molmobot.py`, `dataset_meta_info/molmobot_franka_pick_and_place_omni/`, and the `run_ctrl_world_*_molmo*.slurm` / `run_create_*_meta_info.slurm` launch scripts.
-- **`eval_framework/` — a standalone checkpoint-rollout evaluation workspace** (isolated from training/rollout code):
-  - Video-quality metrics: PSNR / SSIM / LPIPS and FID / FVD (`pipelines/metrics/`).
-  - A pairwise **reward tournament** built on a vendored [Robometer](eval_framework/vendor/robometer) (`pipelines/reward/`), with MolmoAct dataset support.
-  - A human-preference web app and a Streamlit dashboard (`apps/`).
-  - Stable path conventions via `lib/layout.py`. See [eval_framework/README.md](eval_framework/README.md).
-- **Dataset + run tooling.** `preflight_check.sh`, `verify_dataset.py`, offline W&B sync (`sync_wandb_offline.sh`), and quaternion-convention bug test/visualizers (`tools/test_molmobot_quat_bug.py`, `tools/viz_molmobot_quat_bug.py`).
-- **pixi environment** (`pixi.toml` / `pixi.lock`) alongside the original `requirements.txt`.
-
-Everything below is the upstream Ctrl-World documentation.
 
 ##  Content
 **[2026.02] New: add initial conditiones use in paper [here](https://github.com/Robert-gyj/Ctrl-World?tab=readme-ov-file#-3-new-interact-with-pi_05-model-within-world-model-with-initial-conditions-in-the-paper) and wm post-training [here](https://github.com/Robert-gyj/Ctrl-World?tab=readme-ov-file#-3-new-post-train-world-model-on-down-stream-tasks)**
